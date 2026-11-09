@@ -67,6 +67,8 @@ button { color: inherit; }
 
 .local-status { display: flex; align-items: center; gap: 8px; color: #a1a4b1; }
 .status-dot, .pattern-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px rgba(120,226,189,.5); }
+.install-button { padding: 7px 10px; border: 1px solid var(--line); border-radius: 7px; background: #222530; color: var(--text); font-size: 11px; cursor: pointer; }
+.install-button:hover { border-color: #55596a; background: #2a2d39; }
 .help-link { color: #a1a4b1; text-decoration: none; }
 .help-link span { color: var(--purple-bright); margin-left: 4px; }
 
@@ -161,6 +163,7 @@ select option { color: var(--text); background: var(--panel); }
   .app { width: calc(100% - 32px); }
   .topbar { height: 64px; }
   .local-status { display: none; }
+  .install-button { margin-left: auto; }
   .intro { padding-top: 37px; }
   .intro-copy { max-width: 440px; line-height: 1.5; }
   .transport { align-items: flex-start; flex-direction: column; gap: 14px; }

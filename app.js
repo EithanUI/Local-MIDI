@@ -23,6 +23,8 @@ const playIcon = document.querySelector(".play-icon");
 const tempoInput = document.querySelector("#tempo");
 const lengthSelect = document.querySelector("#note-length");
 const toast = document.querySelector("#toast");
+const installButton = document.querySelector("#install-button");
+let installPrompt;
 
 function pitchName(pitch) {
   return `${NOTE_NAMES[pitch % 12]}${Math.floor(pitch / 12) - 1}`;
@@ -294,6 +296,42 @@ tempoInput.addEventListener("change", () => {
   const tempo = Math.min(240, Math.max(40, Number(tempoInput.value) || 112));
   tempoInput.value = String(tempo);
 });
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  installPrompt = event;
+});
+
+installButton.addEventListener("click", async () => {
+  if (!installPrompt) {
+    showToast("Use your browser menu to install this app or add it to your home screen.");
+    return;
+  }
+
+  try {
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === "accepted") installButton.hidden = true;
+  } catch (error) {
+    console.error("Could not start app installation.", error);
+    showToast("Could not start installation. Try your browser menu instead.");
+  } finally {
+    installPrompt = undefined;
+  }
+});
+
+window.addEventListener("appinstalled", () => {
+  installPrompt = undefined;
+  installButton.hidden = true;
+  showToast("LocalMIDI was installed.");
+});
+
+if ("serviceWorker" in navigator && window.isSecureContext) {
+  navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+    console.error("Could not register the offline app worker.", error);
+    showToast("Offline setup failed. The app is still available while online.");
+  });
+}
 
 createRoll();
 requestAnimationFrame(updatePlayhead);
