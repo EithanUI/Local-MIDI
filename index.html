@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#11131b">
+    <meta name="description" content="A pocket-sized, browser-only MIDI piano roll. Make music without an account; your notes stay on your device.">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+    <title>LocalMIDI — piano roll</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="LocalMIDI home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span>Local<span class="brand-accent">MIDI</span></span>
+        </a>
+        <span class="local-status"><span class="status-dot"></span> MUSIC STAYS IN THIS TAB · NO ACCOUNT</span>
+        <a class="help-link" href="#help">HOW TO PLAY <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <section class="intro">
+        <div>
+          <p class="eyebrow">YOUR POCKET-SIZED MUSIC STUDIO</p>
+          <h1>Make a little <span>noise.</span></h1>
+          <p class="intro-copy">A piano roll with all 128 MIDI notes. Click a key, find your sound, and make something yours.</p>
+        </div>
+        <div class="note-count"><strong>128</strong><span> MIDI NOTES</span></div>
+      </section>
+
+      <section class="studio" aria-label="Music maker">
+        <div class="transport">
+          <div class="transport-left">
+            <button class="play-button" id="play-button" type="button" aria-label="Play">
+              <span class="play-icon" aria-hidden="true">▶</span>
+              <span id="play-label">Play</span>
+            </button>
+            <button class="icon-button" id="stop-button" type="button" aria-label="Stop playback" title="Stop">■</button>
+            <span class="transport-divider"></span>
+            <label class="control-group tempo-control">
+              <span class="control-label">TEMPO</span>
+              <span class="number-control">
+                <input id="tempo" type="number" min="40" max="240" value="112" aria-label="Tempo in beats per minute">
+                <span>BPM</span>
+              </span>
+            </label>
+            <label class="control-group">
+              <span class="control-label">NOTE LENGTH</span>
+              <select id="note-length" aria-label="New note length">
+                <option value="1">1/16</option>
+                <option value="2">1/8</option>
+                <option value="4" selected>1/4</option>
+                <option value="8">1/2</option>
+                <option value="16">1 bar</option>
+              </select>
+            </label>
+          </div>
+          <div class="transport-right">
+            <span class="pattern-label"><span class="pattern-dot"></span> 4-BAR PATTERN</span>
+            <button class="secondary-button" id="clear-button" type="button">Clear</button>
+            <button class="export-button" id="export-button" type="button"><span aria-hidden="true">↓</span> Export MIDI</button>
+          </div>
+        </div>
+
+        <div class="roll-meta">
+          <span>PIANO ROLL <span class="meta-separator">/</span> <span id="note-total">0 NOTES</span></span>
+          <span class="roll-hint">Click a lane to add a note <span class="hint-separator">·</span> Click a note to remove it</span>
+        </div>
+
+        <div class="roll-scroll" id="roll-scroll" aria-label="128-note piano roll">
+          <div class="roll-content">
+            <div class="roll-ruler">
+              <div class="ruler-corner"><span>NOTE</span></div>
+              <div class="ruler-grid" id="ruler-grid"></div>
+            </div>
+            <div class="roll-body" id="roll-body"></div>
+          </div>
+        </div>
+        <div class="roll-footer">
+          <span><span class="legend-note"></span> YOUR NOTES</span>
+          <span>SCROLL TO EXPLORE ALL 128 NOTES</span>
+        </div>
+      </section>
+
+      <footer class="page-footer" id="help">
+        <span>Made for curious ears.</span>
+        <span>Click to add · choose note length above · hit play · export a .mid file</span>
+      </footer>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
