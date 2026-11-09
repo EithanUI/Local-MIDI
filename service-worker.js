@@ -1,4 +1,4 @@
-const CACHE_NAME = "art-midi-v3";
+const CACHE_NAME = "art-midi-v4";
 const APP_SHELL = [
   "./index.html",
   "./styles.css",

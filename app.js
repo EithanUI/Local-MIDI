@@ -1,5 +1,5 @@
 const NOTE_NAMES = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
-const WHITE_NOTES = new Set([0, 2, 4, 5, 7, 9, 11]);
+const BLACK_NOTES = new Set([1, 3, 6, 8, 10]);
 const TOTAL_STEPS = 64;
 const TICKS_PER_STEP = 120;
 const notes = [];
