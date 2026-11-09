@@ -1,4 +1,4 @@
-const CACHE_NAME = "art-midi-v4";
+const CACHE_NAME = "art-midi-v5";
 const APP_SHELL = [
   "./index.html",
   "./styles.css",
@@ -41,17 +41,16 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(
     (async () => {
-      const cachedResponse = await caches.match(request);
-      if (cachedResponse) return cachedResponse;
-
       try {
-        const response = await fetch(request);
+        const response = await fetch(request, { cache: "no-cache" });
         if (response.ok && isAppAsset) {
           const cache = await caches.open(CACHE_NAME);
           await cache.put(request, response.clone());
         }
         return response;
       } catch (error) {
+        const cachedResponse = await caches.match(request);
+        if (cachedResponse) return cachedResponse;
         if (isAppNavigation) {
           const appShell = await caches.match(new URL("./index.html", self.registration.scope).href);
           if (appShell) return appShell;
