@@ -3,36 +3,60 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#11131b">
-    <meta name="description" content="A pocket-sized, browser-only MIDI piano roll. Make music without an account; your notes stay on your device.">
+    <meta name="theme-color" content="#f5eee4">
+    <meta name="description" content="Art MIDI is a private, installable browser MIDI editor. Create and export music locally, with no account or uploads.">
     <meta name="referrer" content="no-referrer">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; manifest-src 'self'; worker-src 'self'; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
-    <title>LocalMIDI — piano roll</title>
+    <title>Art MIDI — MIDI editor</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="app">
       <header class="topbar">
-        <a class="brand" href="#" aria-label="LocalMIDI home">
+        <a class="brand" href="#" aria-label="Art MIDI home">
           <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-          <span>Local<span class="brand-accent">MIDI</span></span>
+          <span>Art <span class="brand-accent">MIDI</span></span>
         </a>
-        <span class="local-status"><span class="status-dot"></span> MUSIC STAYS IN THIS TAB · NO ACCOUNT</span>
-        <button class="install-button" id="install-button" type="button">Install app</button>
-        <a class="help-link" href="#help">HOW TO PLAY <span aria-hidden="true">↗</span></a>
+        <span class="local-status"><span class="status-dot"></span> YOUR MUSIC, YOUR DEVICE</span>
+        <div class="topbar-actions">
+          <a class="help-link" href="#help">A QUICK GUIDE <span aria-hidden="true">↘</span></a>
+          <button class="install-button" id="install-button" type="button"><span aria-hidden="true">↓</span> Get the app</button>
+        </div>
       </header>
 
       <section class="intro">
-        <div>
-          <p class="eyebrow">YOUR POCKET-SIZED MUSIC STUDIO</p>
-          <h1>Make a little <span>noise.</span></h1>
-          <p class="intro-copy">A piano roll with all 128 MIDI notes. Click a key, find your sound, and make something yours.</p>
+        <div class="intro-copy-block">
+          <p class="eyebrow"><span class="eyebrow-star" aria-hidden="true">✳</span> A SMALL SPACE TO MAKE SOUND</p>
+          <h1>Turn a feeling<br>into a <span>song.</span></h1>
+          <p class="intro-copy">A little piano studio for the ideas you don’t want to forget. Tap out a melody, find your rhythm, make it yours.</p>
+          <div class="hero-details">
+            <span class="hero-count"><strong>128</strong> notes to play with</span>
+            <span class="hero-divider" aria-hidden="true"></span>
+            <span class="hero-private"><span class="status-dot"></span> Just you &amp; your browser</span>
+          </div>
         </div>
-        <div class="note-count"><strong>128</strong><span> MIDI NOTES</span></div>
+        <div class="hero-art" aria-hidden="true">
+          <span class="art-caption">IDEAS WELCOME</span>
+          <span class="art-sun"></span>
+          <span class="art-orbit"></span>
+          <span class="art-note art-note-one">♪</span>
+          <span class="art-note art-note-two">♫</span>
+          <span class="art-spark art-spark-one">✳</span>
+          <span class="art-spark art-spark-two">✳</span>
+          <span class="art-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </div>
       </section>
 
-      <section class="studio" aria-label="Music maker">
+      <section class="studio" aria-label="Art MIDI music editor">
+        <div class="studio-heading">
+          <div>
+            <span class="studio-kicker">THE PLAYGROUND</span>
+            <h2>Your piano roll</h2>
+          </div>
+          <span class="studio-instruction"><span class="instruction-dot"></span> Click any square to place a note</span>
+        </div>
         <div class="transport">
           <div class="transport-left">
             <button class="play-button" id="play-button" type="button" aria-label="Play">
@@ -67,29 +91,33 @@
         </div>
 
         <div class="roll-meta">
-          <span>PIANO ROLL <span class="meta-separator">/</span> <span id="note-total">0 NOTES</span></span>
-          <span class="roll-hint">Click a lane to add a note <span class="hint-separator">·</span> Click a note to remove it</span>
+          <span>YOUR CANVAS <span class="meta-separator">/</span> <span id="note-total">0 NOTES</span></span>
+          <span class="roll-hint">Tap a key to hear it <span class="hint-separator">·</span> Tap a note to erase it</span>
         </div>
 
         <div class="roll-scroll" id="roll-scroll" aria-label="128-note piano roll">
           <div class="roll-content">
             <div class="roll-ruler">
-              <div class="ruler-corner"><span>NOTE</span></div>
+              <div class="ruler-corner"><span>PITCH</span></div>
               <div class="ruler-grid" id="ruler-grid"></div>
             </div>
             <div class="roll-body" id="roll-body"></div>
           </div>
         </div>
         <div class="roll-footer">
-          <span><span class="legend-note"></span> YOUR NOTES</span>
-          <span>SCROLL TO EXPLORE ALL 128 NOTES</span>
+          <span><span class="legend-note"></span> YOUR LITTLE IDEAS</span>
+          <span>SCROLL TO FIND YOUR NOTE</span>
         </div>
       </section>
 
       <footer class="page-footer" id="help">
-        <span>Made for curious ears.</span>
-        <span>Click to add · choose note length above · hit play · export a .mid file</span>
+        <div>
+          <span class="footer-title">Make something that sounds like you.</span>
+          <span class="footer-copy">Choose a note length. Tap the grid. Press play. Keep the song.</span>
+        </div>
+        <span class="footer-export">Export your loop as a MIDI file <span aria-hidden="true">↗</span></span>
       </footer>
+      <p class="privacy-note"><span class="privacy-lock" aria-hidden="true">●</span> Your notes stay in this tab. Nothing is uploaded or saved. Export a MIDI file to keep your work.</p>
       <div class="toast" id="toast" role="status" aria-live="polite"></div>
     </main>
     <script src="app.js"></script>

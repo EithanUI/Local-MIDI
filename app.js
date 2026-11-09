@@ -1,5 +1,5 @@
 const NOTE_NAMES = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
-const BLACK_NOTES = new Set([1, 3, 6, 8, 10]);
+const WHITE_NOTES = new Set([0, 2, 4, 5, 7, 9, 11]);
 const TOTAL_STEPS = 64;
 const TICKS_PER_STEP = 120;
 const notes = [];
@@ -284,12 +284,12 @@ document.querySelector("#export-button").addEventListener("click", () => {
   const url = URL.createObjectURL(file);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "LocalMIDI.mid";
+  link.download = "Art-MIDI.mid";
   document.body.append(link);
   link.click();
   link.remove();
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-  showToast("Your LocalMIDI pattern has been exported.");
+  showToast("Your Art MIDI pattern has been exported.");
 });
 
 tempoInput.addEventListener("change", () => {
@@ -323,7 +323,7 @@ installButton.addEventListener("click", async () => {
 window.addEventListener("appinstalled", () => {
   installPrompt = undefined;
   installButton.hidden = true;
-  showToast("LocalMIDI was installed.");
+  showToast("Art MIDI was installed.");
 });
 
 if ("serviceWorker" in navigator && window.isSecureContext) {

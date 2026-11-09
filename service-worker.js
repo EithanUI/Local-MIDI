@@ -1,13 +1,12 @@
-const CACHE_NAME = "localmidi-v1";
+const CACHE_NAME = "art-midi-v3";
 const APP_SHELL = [
-  "./",
   "./index.html",
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
-];
+].map((path) => new URL(path, self.registration.scope).href);
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -20,9 +19,10 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
-        cacheNames
-          .filter((cacheName) => cacheName.startsWith("localmidi-") && cacheName !== CACHE_NAME)
-          .map((cacheName) => caches.delete(cacheName)),
+        cacheNames.map((cacheName) => {
+          const isAppCache = cacheName.startsWith("localmidi-") || cacheName.startsWith("art-midi-");
+          return isAppCache && cacheName !== CACHE_NAME ? caches.delete(cacheName) : Promise.resolve(false);
+        }),
       ),
     ),
   );
@@ -34,18 +34,30 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
 
+  const isAppNavigation = request.mode === "navigate" &&
+    url.href.startsWith(self.registration.scope);
+  const isAppAsset = APP_SHELL.includes(url.href);
+  if (!isAppNavigation && !isAppAsset) return;
+
   event.respondWith(
-    fetch(request).then(async (response) => {
-      if (response.ok) {
-        const cache = await caches.open(CACHE_NAME);
-        await cache.put(request, response.clone());
-      }
-      return response;
-    }).catch(async () => {
+    (async () => {
       const cachedResponse = await caches.match(request);
       if (cachedResponse) return cachedResponse;
-      if (request.mode === "navigate") return caches.match("./index.html");
-      return Response.error();
-    }),
+
+      try {
+        const response = await fetch(request);
+        if (response.ok && isAppAsset) {
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(request, response.clone());
+        }
+        return response;
+      } catch (error) {
+        if (isAppNavigation) {
+          const appShell = await caches.match(new URL("./index.html", self.registration.scope).href);
+          if (appShell) return appShell;
+        }
+        throw error;
+      }
+    })(),
   );
 });

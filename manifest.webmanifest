@@ -1,13 +1,13 @@
 {
   "id": "./",
-  "name": "LocalMIDI — Piano Roll",
-  "short_name": "LocalMIDI",
-  "description": "A pocket-sized, browser-only MIDI piano roll.",
+  "name": "Art MIDI — MIDI Editor",
+  "short_name": "Art MIDI",
+  "description": "A private, installable browser MIDI editor. Create and export music locally.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#11131b",
-  "theme_color": "#11131b",
+  "background_color": "#f5eee4",
+  "theme_color": "#f5eee4",
   "icons": [
     {
       "src": "icons/icon-192.png",
