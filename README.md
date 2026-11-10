@@ -1,6 +1,6 @@
-# Art MIDI
+# Local MIDI
 
-Art MIDI is a browser-only, installable MIDI editor for sketching ideas in a 128-note piano roll. Notes are kept in memory in the current page; they are not uploaded or saved between visits. MIDI export is generated locally by your browser. Install only from the project's trusted HTTPS site using **Get the app** or your browser's install/add-to-home-screen menu. The app shell is cached for offline use; patterns themselves are not saved.
+Local MIDI is a browser-only, installable MIDI editor for sketching ideas in a 128-note piano roll. Notes are kept in memory in the current page; they are not uploaded or saved between visits. MIDI export is generated locally by your browser. Install only from the project's trusted HTTPS site using **Get the app** or your browser's install/add-to-home-screen menu. The app shell is cached for offline use; patterns themselves are not saved.
 
 ## Publish with GitHub Pages
 
